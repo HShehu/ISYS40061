@@ -3,6 +3,7 @@ const passport = require('passport')
 const User = require('./models/user-model')
 require("dotenv").config()
 
+//create Google Strategy for Oauth2 + OpenID
 passport.use(
   "google",
   new strategy(

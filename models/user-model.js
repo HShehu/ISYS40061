@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+//MongoSchema for Shares
 const shareSchema = new Schema({
     companyName:{
         type:String,
@@ -21,6 +22,7 @@ const shareSchema = new Schema({
     }
 })
 
+//Schema for User Model
 const userSchema = new Schema({
     username:{
         type:String,
@@ -37,7 +39,8 @@ const userSchema = new Schema({
     walletUSD:{
         type:Number,
         default:0,
-        required:true
+        required:true,
+        min:0
     }
 })
 

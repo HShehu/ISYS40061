@@ -5,7 +5,7 @@ require('./config/database')
 
 const app = express()
 
-
+//import auth routes from auth.js
 app.use('/auth',authRoutes)
 
 
