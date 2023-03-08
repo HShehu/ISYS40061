@@ -12,8 +12,8 @@ passport.use(
         clientID: process.env.clientID,
         clientSecret: process.env.clientSecret,
         callbackURL: '/auth/google/redirect'
-      },()=>{
-
+      },(accessToken, refreshToken, profile, done)=>{
+        console.log(profile)
       })
     )
 

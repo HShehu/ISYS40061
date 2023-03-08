@@ -1,6 +1,7 @@
 const express = require('express')
 const authRoutes = require('./routes/auth')
 const passportRun = require('./passport')
+require('./config/database')
 
 const app = express()
 
