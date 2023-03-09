@@ -27,10 +27,9 @@ app.use('/auth',authRoutes)
 app.use(parser.json())
 
 app.get('/',(req,res,next)=>{
-    res.send("<h1>Login</h1>")
+    fetch('http://prpoject-api-1:8000/listStock')
+    .then((response)=>response.json())
+    .then((data)=>res.send(data))
 })
-
-
-
 
 app.listen(3000)
