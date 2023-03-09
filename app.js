@@ -1,7 +1,7 @@
 const express = require('express')
 const authRoutes = require('./routes/auth')
 const passportRun = require('./passport')
-require('./config/database')
+//require('./config/database')
 
 const app = express()
 
@@ -10,7 +10,10 @@ app.use('/auth',authRoutes)
 
 
 app.get('/',(req,res,next)=>{
-    res.send("<h1>Login</h1>")
+    fetch('http://host.docker.internal:8000')
+    .then((response) => response.json())
+    .then((data) => res.send(data))
+    
 })
 
 
