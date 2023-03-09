@@ -3,6 +3,16 @@ const passport = require('passport')
 const User = require('./models/user-model')
 require("dotenv").config()
 
+passport.serializeUser((user,done)=>{
+  done(null,user.id)
+})
+
+passport.deserializeUser((id,done)=>{
+  User.findById(id).then((user)=>{
+    done(null,user)
+  })
+})
+
 //create Google Strategy for Oauth2 + OpenID
 passport.use(
   "google",
@@ -19,12 +29,14 @@ passport.use(
       User.findOne({googleId:profile.id}).then((currentUser)=>{
         if(currentUser){
           console.log('User is' , currentUser)
+          done(null,currentUser)
         } else {
           new User({
             username:profile.displayName,
             googleId:profile.id
           }).save().then((newUser)=>{
             console.log('New User Created' + newUser)
+            done(null,newUser)
           })
         }
       })
