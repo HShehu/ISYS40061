@@ -35,9 +35,9 @@
 							<!-- Banner -->
 								<section id="banner">
 									<dialog class="modal" id="modal">
-										<form method="dialog" id="walletForm" >
+										<form method="post" action="/addMoney" id="walletForm" >
 												<div class="col-6 col-12-xsmall">
-													<input type="number" name="demo-name" id="demo-name" value="" placeholder="Amount" min="0" max="20" style="width: 100%"/>
+													<input type="number" name="demo" id="demo-name" value="" placeholder="Amount" min="0" max="20" style="width: 100%"/>
 												</div>
 												<br>
 												<!-- Break -->
@@ -244,17 +244,6 @@
 				const add = document.querySelector('#add-money')
 				const submitButton = document.getElementById('submit')
 				const closeModal = document.querySelector('#cancel-modal')
-
-				submitButton.addEventListener('click',()=>{
-					const xhr = new XMLHttpRequest();
-					xhr.open("POST", "/addMoney");
-					xhr.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-					const body = JSON.stringify({
-					amount: document.getElementById('demo-name').value
-					})
-					xhr.send(body)
-					document.getElementById('walletForm').reset()
-				})
 
 				add.addEventListener('click',()=>{
 					modal.showModal()

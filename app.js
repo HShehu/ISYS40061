@@ -27,6 +27,7 @@ app.use(passport.session())
 app.use('/auth',authRoutes)
 
 app.use(parser.json())
+app.use(express.urlencoded())
 
 const authCheck = (req,res,next) =>{
     if(!req.user){
@@ -37,11 +38,8 @@ const authCheck = (req,res,next) =>{
     }
 }
 
-const addToWallet = (user,amount)=>{
-    User.findOneAndUpdate({googleId:user.googleId},{walletUSD:user.walletUSD+amount})
-}
-
-app.get('/',authCheck,(req,res)=>{
+app.use(authCheck)
+app.get('/',(req,res)=>{
 
      fetch('http://prpoject-api-1:8000/listStock')
      .then((response)=>response.json())
@@ -52,8 +50,31 @@ app.get('/',authCheck,(req,res)=>{
 })
 
 app.post('/addMoney',(req,res)=>{
-    console.log('Here')
-    console.log(req.body.amount)
+
+    var number = req.body.demo
+    number = parseInt(number)
+    if (isNaN(number))
+   {
+    console.log("Numbers only");
+   }
+    else
+   {
+   if (number == 0)
+      {
+      console.log("The number is zero");
+      }
+   else if (number<0)
+      {
+      console.log("Must be positive");
+      }
+   else
+      {
+        console.log('Here')
+        User.findByIdAndUpdate(req.user.id,{walletUSD:req.user.walletUSD+number})
+        .then(res.redirect('/'))
+        .catch((err)=>{res.send(err)})
+      }
+   }
 })
 
 app.listen(3000)
