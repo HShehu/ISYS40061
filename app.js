@@ -51,29 +51,9 @@ app.get('/',authCheck,(req,res)=>{
       })
 })
 
-app.get('/addMoney',(req,res)=>{
-    var number = prompt("Add Amount to Wallet", "Type your number here");
-    number = parseInt(number);
-    if (isNaN(number))
-   {
-   alert("Numbers only");
-   }
-    else
-   {
-   if (number == 0)
-      {
-      alert("The number is zero");
-      }
-   else if (number<0)
-      {
-      alert("Must be positive");
-      }
-   else
-      {
-      alert(`${number} is added to wallet`);
-      addToWallet(req.user,number)
-      }
-   }
+app.post('/addMoney',(req,res)=>{
+    console.log('Here')
+    console.log(req.body.amount)
 })
 
 app.listen(3000)
