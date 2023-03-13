@@ -20,7 +20,6 @@ app.use(session({
      }
 }))
 
-app.use(passport.initialize())
 app.use(passport.session())
 
 //import auth routes from auth.js
@@ -28,12 +27,24 @@ app.use('/auth',authRoutes)
 
 app.use(parser.json())
 
-app.get('/',(req,res,next)=>{
-    res.render('home')
-   /*  fetch('http://prpoject-api-1:8000/listStock')
-    .then((response)=>response.json())
-    .then((data)=>res.send(data)) */
+const authCheck = (req,res,next) =>{
+    if(!req.user){
+        res.redirect('auth/login')
+    }
+    else{
+        next()
+    }
+}
 
+app.get('/',authCheck,(req,res)=>{
+
+     fetch('http://prpoject-api-1:8000/listStock')
+     .then((response)=>response.json())
+     .then((data)=>res.render('home',{stocks:data.stocks,user:req.user}))
+     .catch((error) => {
+        console.error("Error:", error)
+      }) 
+      console.log(req.user.username)
 })
 
 app.listen(3000)

@@ -12,7 +12,7 @@ router.get('/google',passport.authenticate('google',{
 
 //route to get profile through backchannel
 router.get("/google/redirect",passport.authenticate('google'),(req,res)=>{
-    res.send("YAta")
+    res.redirect('/')
 })
 
 module.exports = router
