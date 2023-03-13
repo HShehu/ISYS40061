@@ -77,4 +77,25 @@ app.post('/addMoney',(req,res)=>{
    }
 })
 
+
+
+app.get('/stock/:symbol',(req,res)=>{
+
+    fetch('http://prpoject-api-1:8000/listStock')
+     .then((response)=>response.json())
+     .then((data)=>{
+        res.render('buyStock',{
+            stock:data.stocks.find(({symbol})=>symbol === req.params.symbol),
+            user:req.user
+        })
+     })
+     .catch((error) => {
+        console.error("Error:", error)
+      })
+})
+app.post('/buyStocks',(req,res)=>{
+    //check if user has enough money
+})
+
+
 app.listen(3000)
