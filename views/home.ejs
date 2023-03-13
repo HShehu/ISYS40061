@@ -22,9 +22,29 @@
 
 							<!-- Header -->
 								<header id="header">
-									<a href="index.html" class="logo">Hello <strong><%= user.username %></strong></a>
-									<a href="#" class="button icon solid fa-download">Icon</a>
-									<a href="#" class="button">Default</a>
+									<a href="#" class="logo">Hello <strong><%= user.username %></strong></a>
+									<a href="#" class="logo">Wallet: <strong><%= user.walletUSD %></strong></a>
+									<ul class="actions">
+										<li><a href="#" class="button small" id="add-money">Add Money</a></li>
+										<li><a href="#" class="button small">Logout</a></li>
+									</ul>
+									<dialog class="modal" id="modal">
+										<form method="dialog" action="#">
+											<div class="row gtr-uniform">
+												<div class="col-6 col-12-xsmall">
+													<input type="number" name="demo-name" id="demo-name" value="" placeholder="Amount" min="0" max="20"/>
+													<label for="demo-name">Amount</label>
+												</div>
+												<!-- Break -->
+												<div class="col-12">
+													<ul class="actions">
+														<li><input type="submit" value="Add Money" class="primary" /></li>
+														<li><input id="cancel-modal" type="reset" value="Cancel" /></li>
+													</ul>
+												</div>
+											</div>
+										</form>
+									</dialog>
 									
 								</header>
 
@@ -221,6 +241,16 @@
 			<script src="/assets/js/breakpoints.min.js"></script>
 			<script src="/assets/js/util.js"></script>
 			<script src="/assets/js/main.js"></script>
+			<script>
+				const add = document.querySelector('#add-money')
+				const closeModal = document.querySelector('#cancel-modal')
+				add.addEventListener('click',()=>{
+					modal.showModal()
+				})
+				closeModal.addEventListener('click',()=>{
+					modal.close()
+				})
+			</script>
 
 	</body>
 </html>
