@@ -36,10 +36,10 @@
 								<section id="banner">
 									<div class="content">
 										<h3><%=stock.name%></h3>
-                                        <form method="post" action="">
+                                        <form method="post" action="/buyStocks/<%=stock.symbol%>">
                                             <div class="row gtr-uniform">
                                                 <div class="col-6 col-12-xsmall">
-                                                    <input oninput="changeAmount(this.value,'<%=stock.price%>')" onkeypress="changeAmount(this.value,'<%=stock.price%>')" onchange="changeAmount(this.value,'<%=stock.price%>')" type="number" name="demo-name" id="num" value="" placeholder="Amount" min="0" max="<%=stock.availableShares%>" style="width: 100%" />
+                                                    <input oninput="changeAmount(this.value,'<%=stock.price%>')" onkeypress="changeAmount(this.value,'<%=stock.price%>')" onchange="changeAmount(this.value,'<%=stock.price%>')" type="number" name="cost" id="num" value="" placeholder="Amount" min="0" max="<%=stock.availableShares%>" style="width: 100%" />
                                                 </div>
                                                 <h4>Buy $<strong id="amount"></strong></h4>
                                                 <!-- Break -->
@@ -73,7 +73,8 @@
             <script>
                 const amount = document.getElementById('amount')
                 function changeAmount(curVal,price){
-                    amount.textContent = Math.ceil(curVal*price)
+                    amount.textContent = (curVal*price).toFixed(2)
+
                 }
             </script>
 	</body>

@@ -28,14 +28,12 @@ passport.use(
       
       User.findOne({googleId:profile.id}).then((currentUser)=>{
         if(currentUser){
-          console.log('User is' , currentUser)
           done(null,currentUser)
         } else {
           new User({
             username:profile.displayName,
             googleId:profile.id
           }).save().then((newUser)=>{
-            console.log('New User Created' + newUser)
             done(null,newUser)
           })
         }

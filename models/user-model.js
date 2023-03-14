@@ -1,27 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-//MongoSchema for Shares
-const shareSchema = new Schema({
-    companyName:{
-        type:String,
-        trim:true,
-        lowercase:true,
-        required:true
-    },
-    companySymbol:{
-        type:String,
-        trim:true,
-        uppercase:true,
-        required:true
-    },
-    sharesBought:{
-        type:Number,
-        required:true,
-        min:0
-    }
-})
-
 //Schema for User Model
 const userSchema = new Schema({
     username:{
@@ -35,7 +14,26 @@ const userSchema = new Schema({
         trim:true,
         required:true
     },
-    shares:[shareSchema],
+    shares:[{
+        companyName:{
+            type:String,
+            trim:true,
+            lowercase:true,
+            required:true
+        },
+        companySymbol:{
+            type:String,
+            trim:true,
+            uppercase:true,
+            required:true
+        },
+        sharesBought:{
+            type:Number,
+            required:true,
+            default:0,
+            min:0
+        }
+    }],
     walletUSD:{
         type:Number,
         default:0,
