@@ -18,7 +18,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { 
-        maxAge:1000*60*60*24
+        maxAge:1000*60*60*240
      }
 }))
 
@@ -179,6 +179,13 @@ app.post('/sellStocks/:stonks/:price',(req,res)=>{
         res.redirect('/')
     )
     .catch((error)=>console.log('Error',error))
+})
+
+app.get('/logout',(req,res)=>{
+    req.logout(function(err) {
+        if (err) { return next(err); }
+        res.send('<h3><a href="/">You are logged out</a></href>')
+      })
 })
 
 app.listen(3000)
