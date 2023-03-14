@@ -99,7 +99,7 @@
 								
 							<ul class="alt">
 								<% for(var i=0; i < user.shares.length; i++) { %>
-									<li>FFF</li>
+									<li><%=user.shares[i].companyName.toUpperCase()%> : <%=user.shares[i].sharesBought%> <a class="button fit" href="/sellstock/<%=user.shares[i].companySymbol%>">Sell</a></li>
 								 <% } %>
 							</ul>
 							<!-- Footer -->

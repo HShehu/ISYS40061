@@ -96,8 +96,8 @@ app.get('/stock/:symbol',(req,res)=>{
         console.error("Error:", error)
       })
 })
+
 app.post('/buyStocks/:symbol',(req,res)=>{
-    console.log(req.params.symbol)
     fetch('http://prpoject-api-1:8000/listStock')
     .then((response)=>response.json())
     .then((data)=>data.stocks.find(({symbol})=>symbol === req.params.symbol))
@@ -151,5 +151,34 @@ app.post('/buyStocks/:symbol',(req,res)=>{
      })
 })
 
+app.get('/sellstock/:symbol',(req,res)=>{
+    fetch(`http://prpoject-api-1:8000/getStock?stockSym=${req.params.symbol}`)
+    .then((response)=>response.json())
+    .then((stock) => {
+        User.findOne({googleId:req.user.googleId})
+        .then((user)=>{
+            const shares = user.shares.find( share => share.companySymbol== req.params.symbol)
+            res.render('sellStock',{user:req.user,share:shares,stock:stock})
+        })
+    })
+    
+})
+
+app.post('/sellStocks/:stonks/:price',(req,res)=>{
+    fetch(`http://prpoject-api-1:8000/sellStock?stockSym=${req.params.stonks}&amount=${parseInt(req.body.cost)}`,{method:"PUT"})
+    .then('Done with Api.........................Appending Database')
+    .then(
+        User.findOne({googleId:req.user.googleId})
+        .then((user) => {
+            user.shares.find( share => share.companySymbol== req.params.stonks).sharesBought -= parseInt(req.body.cost)
+            user.walletUSD += (req.body.cost * req.params.price)
+            user.save()
+        })
+    )
+    .then(
+        res.redirect('/')
+    )
+    .catch((error)=>console.log('Error',error))
+})
 
 app.listen(3000)
